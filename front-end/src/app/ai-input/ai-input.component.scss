@@ -1,0 +1,8 @@
+.ai-shadow {
+  -webkit-box-shadow: 5px 5px 15px 5px #EB519E, -9px 5px 5px 5px #FFCB57, -7px -5px 5px 5px #ffb535, 12px -5px 5px 5px #20325E, 12px 10px 5px 7px rgba(0,0,0,0);
+  box-shadow: 5px 5px 15px 5px #EB519E, -9px 5px 5px 5px #FFCB57, -7px -5px 5px 5px #ffb535, 12px -5px 5px 5px #20325E, 12px 10px 5px 7px rgba(0,0,0,0);
+
+  input:focus{
+      outline: none;
+  }
+}
