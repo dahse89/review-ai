@@ -1,10 +1,10 @@
 <!--suppress HtmlFormInputWithoutLabel -->
 <div class="flex">
   <div class="rating rating-md center">
-    <input type="radio" [name]="name" class="mask mask-star-2 bg-yellow-400" />
-    <input type="radio" [name]="name" class="mask mask-star-2 bg-yellow-400" checked />
-    <input type="radio" [name]="name" class="mask mask-star-2 bg-yellow-400" />
-    <input type="radio" [name]="name" class="mask mask-star-2 bg-yellow-400" />
-    <input type="radio" [name]="name" class="mask mask-star-2 bg-yellow-400" />
+    <input type="radio" [name]="name" [attr.data-label]="label" class="mask mask-star-2 bg-yellow-400" value="1" (change)="onRadioChange($event)" />
+    <input type="radio" [name]="name" [attr.data-label]="label" class="mask mask-star-2 bg-yellow-400" value="2" (change)="onRadioChange($event)" />
+    <input type="radio" [name]="name" [attr.data-label]="label" class="mask mask-star-2 bg-yellow-400" value="3" (change)="onRadioChange($event)" />
+    <input type="radio" [name]="name" [attr.data-label]="label" class="mask mask-star-2 bg-yellow-400" value="4" (change)="onRadioChange($event)" />
+    <input type="radio" [name]="name" [attr.data-label]="label" class="mask mask-star-2 bg-yellow-400" value="5" (change)="onRadioChange($event)" />
   </div>
 </div>

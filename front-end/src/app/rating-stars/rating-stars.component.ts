@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 
 @Component({
   selector: 'app-rating-stars',
@@ -7,4 +7,14 @@ import { Component, Input } from '@angular/core';
 })
 export class RatingStarsComponent {
   @Input() name = ''
+  @Input() label = ''
+
+  @Output() radioClick: EventEmitter<any> = new EventEmitter()
+
+  onRadioChange(event: any): void {
+    const value = parseInt(event.target.value);
+    const name = event.target.getAttribute('data-label')
+
+    this.radioClick.emit({name, value})
+  }
 }

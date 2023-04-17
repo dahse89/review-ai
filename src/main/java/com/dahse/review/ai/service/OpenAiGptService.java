@@ -1,6 +1,8 @@
 package com.dahse.review.ai.service;
 
+import com.dahse.review.ai.dto.Rating;
 import com.dahse.review.ai.dto.RatingDimension;
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
 import org.json.JSONObject;
 import com.theokanning.openai.completion.CompletionChoice;
@@ -29,19 +31,7 @@ public class OpenAiGptService {
                 "\n" +
                 "Assessment dimensions json object:";
 
-        OpenAiService service = new OpenAiService(openAiApiKey);
-
-        CompletionRequest completionRequest = CompletionRequest.builder()
-                .prompt(prompt)
-                .model("text-davinci-003")
-                .maxTokens(500)
-                .temperature(0d)
-                .build();
-
-        Optional<CompletionChoice> choice = service.createCompletion(completionRequest)
-                .getChoices()
-                .stream()
-                .findFirst();
+        Optional<CompletionChoice> choice = getCompletionChoice(prompt);
 
         ArrayList<RatingDimension> list = new ArrayList<>();
 
@@ -64,6 +54,51 @@ public class OpenAiGptService {
         }
 
         return list;
+    }
 
+    public String writeReview(String topic, List<Rating> ratings) {
+        StringBuilder prompt = new StringBuilder("A rating text for a ");
+
+        prompt.append(topic);
+        prompt.append(" is based on 5 rating dimensions:\n\n");
+
+        for (Rating rating : ratings) {
+            prompt.append(rating.dimension().name())
+                  .append(" was rated ")
+                  .append(rating.rating())
+                  .append(" out of 5 stars\n");
+        }
+
+        prompt.append("\nRating text:");
+
+        Optional<CompletionChoice> choice = getCompletionChoice(prompt.toString(), 2048);
+
+        if (choice.isEmpty()) {
+            return "";
+        }
+
+        return choice.get().getText();
+    }
+
+    @NotNull
+    private Optional<CompletionChoice> getCompletionChoice(String prompt) {
+        return getCompletionChoice(prompt, 500);
+    }
+
+    @NotNull
+    private Optional<CompletionChoice> getCompletionChoice(String prompt, Integer maxTokens) {
+        OpenAiService service = new OpenAiService(openAiApiKey);
+
+        CompletionRequest completionRequest = CompletionRequest.builder()
+                .prompt(prompt)
+                .model("text-davinci-003")
+                .maxTokens(maxTokens)
+                .temperature(0d)
+                .build();
+
+        return service.createCompletion(completionRequest)
+                .getChoices()
+                .stream()
+                .findFirst();
     }
 }

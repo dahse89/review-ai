@@ -26,7 +26,11 @@
           <tr *ngFor="let ratingDimension of ratingDimensions; index as i">
             <td><b>{{ ratingDimension.name }}</b></td>
             <td>{{ ratingDimension.description }}</td>
-            <td><app-rating-stars [name]="i + '-app-rating-stars'" /></td>
+            <td>
+              <app-rating-stars [name]="i + '-app-rating-stars'"
+                                [label]="ratingDimension.name"
+                                (radioClick)="onRatingChange($event)"
+              /></td>
           </tr>
          </tbody>
        </table>
@@ -35,13 +39,15 @@
       <div class="w-full"
            *ngIf="ratingDimensions.length > 0"
       >
-        <button class="btn btn-lg block bg-[#20325e] text-white mx-auto">write review</button>
+        <button class="btn btn-lg block bg-[#20325e] text-white mx-auto"
+                (click)="onClickWriteReview($event)"
+        >write review</button>
       </div>
       <div class="chat chat-end mt-4"
            *ngIf="resultRatingText.length > 0"
       >
         <div class="chat-bubble chat-bubble-primary mb-4">
-          Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+          {{ resultRatingText }}
         </div>
       </div>
     </div>
