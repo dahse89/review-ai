@@ -1,16 +1,22 @@
 <div class="flex justify-center">
-  <div class="form-control w-3/4 transition-all duration-700" [ngClass]="{'z-20': focused, 'w-5/6': focused}">
-    <label class="input-group input-group-lg rounded-full transition transform ease-in-out duration-700" [ngClass]="{'ai-shadow': focused}">
+  <div class="form-control w-3/4 transition-all duration-700" [ngClass]="{'z-20': focused || loading, 'w-5/6': focused || loading}">
+    <label class="input-group input-group-lg rounded-full transition transform ease-in-out duration-700" [ngClass]="{'ai-shadow': focused || loading}">
       <span class="bg-[#20325e]">
-        <app-icons color="#ffffff" [ngClass]="{'animate-pulse': focused}"></app-icons>
+        <app-icons color="#ffffff" [ngClass]="{'animate-pulse': focused, 'animate-spin': loading}"></app-icons>
       </span>
       <input type="text"
              placeholder="product, service, or topic"
              class="font-sans input input-bordered input-lg w-full"
+             [(ngModel)]="aiInput"
              (focus)="onFocusInput($event)"
              (blur)="onBlurInput($event)"
       />
     </label>
   </div>
-  <button class="btn btn-lg ml-4 bg-[#20325e] text-white">go</button>
+  <button class="btn btn-lg ml-4 bg-[#20325e] text-white"
+          (click)="onGoClicked($event)"
+          [ngClass]="{'z-20': focused}"
+  >
+    go
+  </button>
 </div>
